@@ -18,22 +18,29 @@
         }
     </style>
 </head>
-<body onclick="playAudio()">
-    <h1>Нажми на экран, чтобы включить звук</h1>
+<body>
+    <h1 id="text">Нажми на экран, чтобы включить звук</h1>
     <audio id="myAudio" src="sound.mp3" loop></audio>
 
     <script>
         function playAudio() {
             let audio = document.getElementById("myAudio");
+
+            // Попытка включить звук
             audio.play().then(() => {
-                document.body.innerHTML = ""; // Убираем текст после клика
+                console.log("Звук запущен!");
+                document.getElementById("text").remove(); // Убираем текст после клика
+                document.body.style.cursor = "default"; // Убираем указатель клика
             }).catch(error => {
                 console.log("Ошибка воспроизведения:", error);
             });
 
-            // Убираем обработчик, чтобы клик срабатывал только один раз
-            document.body.onclick = null;
+            // После первого клика удаляем обработчик
+            document.body.removeEventListener("click", playAudio);
         }
+
+        // Ждем первого клика пользователя
+        document.body.addEventListener("click", playAudio);
     </script>
 </body>
 </html>
