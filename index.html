@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кнопка со звуком</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+    <title>Авто-звук</title>
+    <script>
+        function playAudio() {
+            let audio = document.getElementById("myAudio");
+            audio.play().then(() => {
+                console.log("Звук воспроизводится!");
+            }).catch(() => {
+                console.log("Ожидание взаимодействия пользователя...");
+            });
         }
-        button {
-            font-size: 24px;
-            padding: 1000px 1000px;
-            cursor: pointer;
-        }
-    </style>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.addEventListener("click", playAudio, { once: true });
+            document.body.addEventListener("keydown", playAudio, { once: true });
+            document.body.addEventListener("touchstart", playAudio, { once: true });
+        });
+    </script>
 </head>
 <body>
-    <button onclick="playSound()">Нажми</button>
-    <audio id="myAudio" src="sound.mp3"></audio>
-
-    <script>
-        function playSound() {
-            document.getElementById('myAudio').play();
-        }
-    </script>
+    <audio id="myAudio" src="sound.mp3" loop></audio>
 </body>
 </html>
