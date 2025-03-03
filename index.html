@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Авто-звук</title>
+    <title>Нажми, чтобы включить звук</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onclick="playAudio()">
+    <h1>Нажми на экран, чтобы включить звук</h1>
+    <audio id="myAudio" src="sound.mp3" loop></audio>
+
     <script>
         function playAudio() {
             let audio = document.getElementById("myAudio");
             audio.play().then(() => {
-                console.log("Звук воспроизводится!");
-            }).catch(() => {
-                console.log("Ожидание взаимодействия пользователя...");
+                document.body.innerHTML = ""; // Убираем текст после клика
+            }).catch(error => {
+                console.log("Ошибка воспроизведения:", error);
             });
-        }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            document.body.addEventListener("click", playAudio, { once: true });
-            document.body.addEventListener("keydown", playAudio, { once: true });
-            document.body.addEventListener("touchstart", playAudio, { once: true });
-        });
+            // Убираем обработчик, чтобы клик срабатывал только один раз
+            document.body.onclick = null;
+        }
     </script>
-</head>
-<body>
-    <audio id="myAudio" src="sound.mp3" loop></audio>
 </body>
 </html>
